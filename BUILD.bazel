@@ -6,6 +6,8 @@ cc_binary(
         "main.cpp"
     ],
     deps = [
-        "@spdlog"
+        "@glfw//:glfw",
+        "@spdlog//:spdlog",
+        "//third_party/glad:glad"
     ]
 )
