@@ -22,7 +22,7 @@ int main() {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-  GLFWwindow *window = glfwCreateWindow(1280, 720, "Breakout", nullptr, nullptr);
+  GLFWwindow *window{glfwCreateWindow(1280, 720, "Breakout", nullptr, nullptr)};
   if (!window) {
     spdlog::error("Failed to create GLFW window");
     glfwTerminate();
