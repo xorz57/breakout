@@ -8,6 +8,7 @@ cc_binary(
     deps = [
         "@glfw//:glfw",
         "@spdlog//:spdlog",
+        "@imgui//:imgui",
         "//third_party/glad:glad"
     ]
 )
