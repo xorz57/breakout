@@ -3,12 +3,14 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 cc_binary(
     name = "breakout",
     srcs = [
-        "main.cpp"
+        "main.cpp",
     ],
+    copts = ["-std=c++23"],
     deps = [
-        "@glfw//:glfw",
-        "@glm//:glm",
-        "@spdlog//:spdlog",
-        "//third_party/glad:glad"
-    ]
+        "//third_party/glad",
+        "//third_party/imgui",
+        "@glfw",
+        "@glm",
+        "@spdlog",
+    ],
 )
