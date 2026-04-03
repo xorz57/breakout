@@ -1,16 +1,8 @@
 load("@rules_cc//cc:cc_library.bzl", "cc_library")
 
 cc_library(
-    name = "imgui",
-    srcs = [
-        "imgui.cpp",
-        "imgui_demo.cpp",
-        "imgui_draw.cpp",
-        "imgui_tables.cpp",
-        "imgui_widgets.cpp",
-        "backends/imgui_impl_glfw.cpp",
-        "backends/imgui_impl_opengl3.cpp",
-    ],
+    name = "imgui_core",
+    srcs = ["imgui.cpp"],
     hdrs = [
         "imconfig.h",
         "imgui.h",
@@ -18,10 +10,74 @@ cc_library(
         "imstb_rectpack.h",
         "imstb_textedit.h",
         "imstb_truetype.h",
-        "backends/imgui_impl_glfw.h",
+    ],
+    includes = ["."],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "imgui_draw",
+    srcs = ["imgui_draw.cpp"],
+    deps = [":imgui_core"],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "imgui_widgets",
+    srcs = ["imgui_widgets.cpp"],
+    deps = [":imgui_core"],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "imgui_tables",
+    srcs = ["imgui_tables.cpp"],
+    deps = [":imgui_core"],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "imgui_backends_glfw",
+    srcs = ["backends/imgui_impl_glfw.cpp"],
+    hdrs = ["backends/imgui_impl_glfw.h"],
+    deps = [":imgui_core"],
+    includes = ["backends"],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "imgui_backends_opengl3",
+    srcs = ["backends/imgui_impl_opengl3.cpp"],
+    hdrs = [
         "backends/imgui_impl_opengl3.h",
         "backends/imgui_impl_opengl3_loader.h",
     ],
-    includes = [".", "backends"],
+    deps = [":imgui_core"],
+    includes = ["backends"],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "imgui_demo",
+    srcs = ["imgui_demo.cpp"],
+    deps = [
+        ":imgui_core",
+        ":imgui_draw",
+        ":imgui_widgets",
+        ":imgui_tables",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "imgui",
+    deps = [
+        ":imgui_core",
+        ":imgui_draw",
+        ":imgui_widgets",
+        ":imgui_tables",
+        ":imgui_backends_glfw",
+        ":imgui_backends_opengl3",
+    ],
     visibility = ["//visibility:public"],
 )
